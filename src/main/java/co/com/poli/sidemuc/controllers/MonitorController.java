@@ -29,7 +29,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "*"})
 @RestController
 @RequestMapping("/monitores")
 public class MonitorController {
@@ -195,7 +195,7 @@ public class MonitorController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }//ok
 
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     @PostMapping("/upload")
     public ResponseEntity<?> uploadPhoto(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
         Map<String, Object> response = new HashMap<>();
@@ -235,7 +235,7 @@ public class MonitorController {
     }
 
     /*permitido a TODOS en el resource server*/
-    @Secured({"ROLE_ADMIN"})
+    //@Secured({"ROLE_ADMIN"})
     @GetMapping("/uploads/img/{nombreFoto:.+}")//el parametro va a tener una extension
     public ResponseEntity<Resource> viewPhoto(@PathVariable String nombreFoto){
 

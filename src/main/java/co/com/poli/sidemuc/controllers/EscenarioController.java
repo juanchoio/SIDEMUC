@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "*"})
 @RestController
 @RequestMapping("/escenarios")
 public class EscenarioController {
@@ -62,7 +62,7 @@ public class EscenarioController {
 
     /*Validas si debo enviarle el Objeto Escenario
     * en el RequiestBody*/
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/eliminar/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Escenario delete(@PathVariable Long id){

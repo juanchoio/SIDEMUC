@@ -6,10 +6,10 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/sidemuc
+    url: jdbc:postgresql://ec2-52-4-111-46.compute-1.amazonaws.com
     platform: postgres
-    username: postgres
-    password: Juan1990
+    username: zvsxhkmypothzg
+    password: 3cb0dda4fcbd2d1bdf2b070228c97f997f0435bf979a8c7ce644bb7964debd9b
   jpa:
     hibernate:
       ddl-auto: create-drop

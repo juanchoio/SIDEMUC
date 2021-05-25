@@ -23,7 +23,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/deportistas/uploads/img/**", "/images/**").permitAll()
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/deportistas/uploads/img/**", "/monitores/uploads/img/**", "/images/**").permitAll()
         //http.authorizeRequests().antMatchers(HttpMethod.GET,"/deportistas", "/deportistas/page/**", "/deportistas/uploads/img/**", "/images/**").permitAll()
                 /*.antMatchers(HttpMethod.GET, "/deportistas/detalle/{id}", "/deportistas/list-all", "/deportistas/uploads/img/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/deportistas/crear", "/upload").hasAnyRole("USER", "ADMIN")
@@ -38,7 +38,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));//permitimos el acceso a la web-app
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "*"));//permitimos el acceso a la web-app
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowCredentials(true);
         config.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));

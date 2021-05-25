@@ -23,15 +23,16 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/deportistas/uploads/img/**", "/images/**").permitAll()
         //http.authorizeRequests().antMatchers(HttpMethod.GET,"/deportistas", "/deportistas/page/**", "/deportistas/uploads/img/**", "/images/**").permitAll()
                 /*.antMatchers(HttpMethod.GET, "/deportistas/detalle/{id}", "/deportistas/list-all", "/deportistas/uploads/img/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/deportistas/crear", "/upload").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/deportistas/actualizar/{id}").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/deportistas/eliminar/{id}").hasRole("ADMIN")*/
-                //.anyRequest().authenticated()
-                //.and().cors().configurationSource(corsConfigurationSource());
+                .anyRequest().authenticated()
+                .and().cors().configurationSource(corsConfigurationSource());
 
-        http.authorizeRequests().antMatchers( "/**").permitAll();
+        //http.authorizeRequests().antMatchers( "/**").permitAll();
     }
 
     @Bean

@@ -3,6 +3,7 @@ package co.com.poli.sidemuc.controllers;
 import co.com.poli.sidemuc.models.entities.Escenario;
 import co.com.poli.sidemuc.models.services.escenario.EscenarioService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,22 +25,26 @@ public class EscenarioController {
         return escenarioService.findAllByEnabled(true);
     }
 
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/detalle/{id}")
     public Escenario findById(@PathVariable Long id){
         return escenarioService.findById(id);
     }
 
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/list-all")
     public List<Escenario> findAll(){
         return escenarioService.findAll();
     }
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/crear")
     @ResponseStatus(HttpStatus.CREATED)
     public Escenario create(@RequestBody Escenario escenario){
         return escenarioService.save(escenario);
     }
 
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/actualizar/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public Escenario update(@RequestBody Escenario escenario, @PathVariable Long id){
@@ -57,6 +62,7 @@ public class EscenarioController {
 
     /*Validas si debo enviarle el Objeto Escenario
     * en el RequiestBody*/
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @DeleteMapping("/eliminar/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Escenario delete(@PathVariable Long id){

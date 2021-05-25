@@ -13,4 +13,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     /*La misma consulta de otra forma*/
     @Query("select u from Usuario u where u.username=?1")
     public Usuario findUsuarioByUsername2(String username);
+
+    public Usuario findUsuarioByMonitor_Id(Long id);
 }

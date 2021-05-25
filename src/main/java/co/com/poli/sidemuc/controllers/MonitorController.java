@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -41,17 +42,20 @@ public class MonitorController {
         this.monitorService = monitorService;
     }
 
+    /*permitido a todos en el resource server*/
     @GetMapping
     public List<Monitor> findEnabled(){
         return monitorService.findAllByEnabled(true);
     }
 
+    /*permitido a todos en el resource server*/
     @GetMapping("/page/{page}")
     public Page<Monitor> findEnabled(@PathVariable Integer page){
         Pageable pageable = PageRequest.of(page, 4);
         return monitorService.findAllByEnabled(pageable);
     }//ok
 
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/detalle/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         Monitor monitor = null;
@@ -71,11 +75,13 @@ public class MonitorController {
         return new ResponseEntity<Monitor>(monitor, HttpStatus.OK);
     }//ok
 
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/list-all")
     public List<Monitor> findAll(){
         return monitorService.findAll();
     }
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/crear")
     public ResponseEntity<?> create(@Valid @RequestBody Monitor monitor, BindingResult result){
         Monitor monitorNew = null;
@@ -110,6 +116,7 @@ public class MonitorController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }//ok
 
+    @Secured({"ROLE_ADMIN"})
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Monitor monitor, BindingResult result, @PathVariable Long id){
         Monitor m = monitorService.findById(id);
@@ -160,6 +167,7 @@ public class MonitorController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
     }//ok
 
+    @Secured({"ROLE_ADMIN"})
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         Monitor m = monitorService.findById(id);
@@ -187,6 +195,7 @@ public class MonitorController {
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }//ok
 
+    @Secured({"ROLE_ADMIN"})
     @PostMapping("/upload")
     public ResponseEntity<?> uploadPhoto(@RequestParam("archivo") MultipartFile archivo, @RequestParam("id") Long id){
         Map<String, Object> response = new HashMap<>();
@@ -226,7 +235,7 @@ public class MonitorController {
     }
 
     /*permitido a TODOS en el resource server*/
-    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured({"ROLE_ADMIN"})
     @GetMapping("/uploads/img/{nombreFoto:.+}")//el parametro va a tener una extension
     public ResponseEntity<Resource> viewPhoto(@PathVariable String nombreFoto){
 

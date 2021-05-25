@@ -43,12 +43,14 @@ public class DeportistaController {
     }
 
     /*permitido a todos en el resource server*/
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public List<Deportista> findEnabled(){
         return deportistaService.findAllByEnabled(true);
     }
 
     /*permitido a todos en el resource server*/
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/page/{page}")
     public Page<Deportista> findEnabled(@PathVariable Integer page){
         Pageable pageable = PageRequest.of(page, 4);
@@ -56,7 +58,7 @@ public class DeportistaController {
     }//ok
 
     /*permitido a rol usuario y administrador en el resource server*/
-    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/detalle/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
         Deportista deportista = null;
@@ -77,14 +79,14 @@ public class DeportistaController {
     }//ok
 
     /*permitido a rol usuario y administrador en el resource server*/
-    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/list-all")
     public List<Deportista> findAll(){
         return deportistaService.findAll();
     }
 
     /*permitido a rol usuario y administrador en el resource server*/
-    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @PostMapping("/crear")
     public ResponseEntity<?> create(@Valid @RequestBody Deportista deportista, BindingResult result){
 
@@ -121,7 +123,7 @@ public class DeportistaController {
     }//ok
 
     /*permitido a rol usuario y administrador en el resource server*/
-    //@Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Deportista deportista, BindingResult result, @PathVariable Long id){
         Deportista dep = deportistaService.findById(id);
@@ -173,7 +175,7 @@ public class DeportistaController {
     }//ok
 
     /*permitido a rol  administrador en el resource server*/
-    //@Secured("ROLE_ADMIN")
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
 
